@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html><head>
+    <title>신 메뉴 체계와 구 메뉴 체계 상호 간 영향 받지 않게 CSS 분리 : Badalog</title>
+    <meta charset="utf-8">
+    <meta name="description" content="This is a description of your site. This is also used in your site header metadata." />
+    <meta name="dc.relation" content="https://0cean-kr.github.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    
+    <link rel="stylesheet" href="https://0cean-kr.github.io/style.min.d3da666ed9ed68d7ddcd192b882d21db9631617388ce5c8d8d37f54862ccd8ff.css" integrity="sha256-09pmbtntaNfdzRkriC0h25YxYXOIzlyNjTf1SGLM2P8=">
+
+
+    
+    
+    <link rel="stylesheet" href="https://0cean-kr.github.io/style.min.1f9f55561f84d16b2741033325db3a786d51d0abd48e8189c111941bf5cb94f5.css" integrity="sha256-H59VVh&#43;E0WsnQQMzJds6eG1R0KvUjoGJwRGUG/XLlPU=">
+
+
+
+    
+    
+    <link rel="stylesheet" href="https://0cean-kr.github.io/assets/css/extra.css" media="screen">
+    
+    
+
+    <script src="https://0cean-kr.github.io/js/bulma.js"></script>
+
+    <link rel="shortcut icon" type="image/x-icon" href="https://0cean-kr.github.io/img/">
+</head><body>
+        <div id="container">
+<div class="container">
+<nav class="navbar  mb-4" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item title has-text-black" href="https://0cean-kr.github.io/">Badalog</a>
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar-menu">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div id="navbar-menu" class="navbar-menu">
+    <div class="navbar-end">
+        
+        <a class="navbar-item" href="https://0cean-kr.github.io/"  >Home</a>
+        
+        <a class="navbar-item" href="https://0cean-kr.github.io/about/"  >About</a>
+        
+        <a class="navbar-item" href="https://0cean-kr.github.io/archive/"  >Archive</a>
+        
+    </div>
+  </div>
+</nav>
+</div><div class="container">
+                <div id="content">
+<main aria-role="main">
+  <div class="section">
+    <div class="columns">
+      <div class="column">
+        <figure class="image ">
+          
+        </figure>
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column">
+        <div class="content">
+          <h1 class="title is-3">신 메뉴 체계와 구 메뉴 체계 상호 간 영향 받지 않게 CSS 분리</h1>
+          <h2 class="subtitle is-5"><time>January 25, 2024</time></h2>
+          <p class="subtitle is-4">신 메뉴 체계와 구 메뉴 체계 상호 간 영향 받지 않게 CSS 분리!</p>
+          <blockquote>
+<p>isNewDecorator 라는 옵션으로 구 UI와 신 UI를 나누게 되었다.
+옵션으로 나뉘었지만 구 UI와 신 UI가 사용하는 CSS 파일은 분리하지 않고 같은 파일을 사용하였더니,
+구 UI에서 수정하면 신 UI에서 틀어지고,
+신 UI에서 수정하면 구 UI에서 틀어지는 일이 벌어졌다……
+그래서 이 둘이 사용하는 CSS 파일을 완전히 분리하기로 했다.</p>
+</blockquote>
+<ul>
+<li>CSS 폴더 ⇒ 구 UI 사용 CSS 파일들</li>
+<li>CSS2 폴더 ⇒ 신 UI 사용 CSS 파일들
+<blockquote>
+<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/8183a920-5524-4db4-a0a9-b5af74757153/9cd3928d-3485-404b-975c-520a36a4c191/Untitled.png" alt="Untitled"></p>
+<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/8183a920-5524-4db4-a0a9-b5af74757153/2e13f7d1-254a-47db-b5c6-0c3f6015c358/Untitled.png" alt="Untitled"></p>
+<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/8183a920-5524-4db4-a0a9-b5af74757153/d173e080-3531-44fe-b572-9655d3146f7d/Untitled.png" alt="Untitled"></p>
+</blockquote>
+</li>
+</ul>
+<h3 id="단순히-이렇게-끝났으면-간단하고-좋았을텐데-문제가-발생했다-">단순히 이렇게 끝났으면 간단하고 좋았을텐데… 문제가 발생했다 💥</h3>
+<blockquote>
+<p>기존에 작업이 됐던 브랜치들이 Stable 브랜치로 최종 반영되면, 각 브랜치들의 수정사항이 구 UI CSS파일(main.css)에만 적용되고,
+신 UI CSS파일(main_deco_1.css)에서는 받아오지 못하는 문제가 생겼다. (해결하려면 수동으로 일일이 옮겨주는것?…… 😇)</p>
+</blockquote>
+<p>이 문제를 해결하고자 Webpack과 Postcss 플러그인을 사용해 자동화 하는 작업이다.</p>
+<blockquote>
+</blockquote>
+<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/8183a920-5524-4db4-a0a9-b5af74757153/d9737523-8eff-462b-902e-2601e05e4d78/Untitled.png" alt="Untitled"></p>
+<h3 id="기존-webpack-번들링">기존 Webpack 번들링</h3>
+<pre><code>                **[ASIS]**
+</code></pre>
+<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/8183a920-5524-4db4-a0a9-b5af74757153/114e154e-e492-4e55-b8f5-4aba583a2e38/Untitled.png" alt="Untitled"></p>
+<pre><code>                       **[TOBE]**
+</code></pre>
+<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/8183a920-5524-4db4-a0a9-b5af74757153/cd66f0d2-a7cf-492e-acbd-b0b43ad0d612/Untitled.png" alt="Untitled"></p>
+<h2 id="webpack--postcss-">Webpack / Postcss ?</h2>
+<h2 id="npm--node-package-manager">npm ? Node Package Manager</h2>
+<blockquote>
+<ul>
+<li>npm은 자바스크립트 프로그래밍 언어를 위한 패키지 관리자</li>
+</ul>
+</blockquote>
+<ul>
+<li>자바스크립트 환경 Node.js의 기본 패키지 관리자</li>
+<li>CLI*(명령 줄 인터페이스 Command-line interface, CLI)*를 통해 패키지 설치 및 삭제뿐 아니라 패키지 버전 관리, 의존성 관리 편리하게 가능
+<blockquote>
+</blockquote>
+</li>
+</ul>
+<h2 id="webpack-">Webpack ?</h2>
+<blockquote>
+<ul>
+<li>모듈 번들러 : 웹에서 사용되는 모든 자원(assets)을 번들링 해주는 도구 *(*번들링: 여러개의 파일을 하나의 파일로 묶어 패키징 시키는 과정)*</li>
+</ul>
+</blockquote>
+<ul>
+<li>파일은 하나로 합치면, 네트워크 요청 횟수는 줄어들게 된다.</li>
+<li>Request Response 비용을 줄이기 위한 처리.</li>
+<li>Javascript, Image file, Font, CSS, SCSS 등과 같은 자산을 하나의 모듈로 취급</li>
+<li>Entry 별로 Bundle 생성 가능</li>
+<li>Bundle에 대한 *압축(Minify) 및 *난독화(Uglify), 소스 맵에 대한 옵션을 제공 *(*소스 맵: 원본(original) 소스 코드와 변환된(transpiled) 소스 코드 사이의 매핑 정보가 선언된 파일)</li>
+</ul>
+<ul>
+<li>압축 (Minify): 불필요한 줄바꿈, 공백 및 들여쓰기. 주석 삭제, 등등 …</li>
+<li>난독화 (Uglify):*</li>
+</ul>
+<ul>
+<li>Plug-In 사용을 통한 사용자 정의 기능 수행</li>
+<li>비동기 I/O와 다중 캐시 레벨을 사용하기 때문에 컴파일 속도가 매우 빠름</li>
+<li>CommonJS(nodejs)와 AMD(requires) 스펙 지원
+<blockquote>
+</blockquote>
+</li>
+</ul>
+<h2 id="postcss-">Postcss ?</h2>
+<blockquote>
+<ul>
+<li>CSS 후처리기.</li>
+</ul>
+</blockquote>
+<ul>
+<li>JS 플러그인을 사용하여 CSS를 변환하는 도구</li>
+<li>필요한 플러그인만 설치하여 사용 가능.</li>
+<li>PostCSS 자체는 아무 일도 하지 않지만, 다양한 플러그인과, 플러그인을 추가할 수 있는 환경을 제공한다.</li>
+<li>Webpack과는 별도로 설치 후 사용 가능.
+<blockquote>
+</blockquote>
+</li>
+</ul>
+<hr>
+<h1 id="최종-번들링-하는-법-">최종 번들링 하는 법 :</h1>
+<ul>
+<li>📁 frontend 폴더 &gt; package.json
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;DLP_Center&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;version&#34;</span>: <span style="color:#e6db74">&#34;0.0.1&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;SOMANSA Data Loss Prevention Solution&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;private&#34;</span>: <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;scripts&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;test&#34;</span>: <span style="color:#e6db74">&#34;echo \&#34;Error: no test specified\&#34; &amp;&amp; exit 1&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;watch&#34;</span>: <span style="color:#e6db74">&#34;webpack --watch&#34;</span>, <span style="color:#75715e">// 파일 변경을 감지하고 자동으로 다시 빌드
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#f92672">&#34;bundle&#34;</span>: <span style="color:#e6db74">&#34;webpack &amp;&amp; type \&#34;..\\src\\main\\webapp\\dist\\css\\main_deco_1.css\&#34; \&#34;..\\src\\main\\webapp\\dist\\css\\main.css\&#34; &gt; \&#34;..\\postcss\\main.combine.css\&#34; &amp;&amp; type \&#34;..\\src\\main\\webapp\\dist\\css\\vendors_deco_1.css\&#34; \&#34;..\\src\\main\\webapp\\dist\\css\\vendors.css\&#34; &gt; \&#34;..\\postcss\\vendors.combine.css\&#34; &#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;keywords&#34;</span>: [],
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;author&#34;</span>: <span style="color:#e6db74">&#34;duck@somansa.com&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;license&#34;</span>: <span style="color:#e6db74">&#34;ISC&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;devDependencies&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;clean-webpack-plugin&#34;</span>: <span style="color:#e6db74">&#34;^3.0.0&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;css-loader&#34;</span>: <span style="color:#e6db74">&#34;^0.28.11&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;file-loader&#34;</span>: <span style="color:#e6db74">&#34;^1.1.11&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;mini-css-extract-plugin&#34;</span>: <span style="color:#e6db74">&#34;^0.2.0&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;optimize-css-assets-webpack-plugin&#34;</span>: <span style="color:#e6db74">&#34;^4.0.0&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;style-loader&#34;</span>: <span style="color:#e6db74">&#34;^0.20.3&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;uglifyjs-webpack-plugin&#34;</span>: <span style="color:#e6db74">&#34;^1.2.4&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;url-loader&#34;</span>: <span style="color:#e6db74">&#34;^1.0.1&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;webpack&#34;</span>: <span style="color:#e6db74">&#34;^4.3.0&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;webpack-cli&#34;</span>: <span style="color:#e6db74">&#34;^2.0.13&#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;dependencies&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;npm&#34;</span>: <span style="color:#e6db74">&#34;^6.12.1&#34;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></li>
+<li>📁 frontend &gt; webpack.config.js
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">path</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#34;path&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">UglifyJsPlugin</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#34;uglifyjs-webpack-plugin&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">MiniCssExtractPlugin</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#34;mini-css-extract-plugin&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">OptimizeCSSAssetsPlugin</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#34;optimize-css-assets-webpack-plugin&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">CleanWebpackPlugin</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#34;clean-webpack-plugin&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">mode</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;production&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">entry</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">vendors</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;../src/main/webapp/entry_vendors.js&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">vendors_deco_1</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;../src/main/webapp/entry_vendors2.js&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">main</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;../src/main/webapp/entry_main.js&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">main_deco_1</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;../src/main/webapp/entry_main2.js&#34;</span>,
+</span></span><span style="display:flex;"><span>  }, <span style="color:#75715e">// 번들링의 시작점
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">output</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">filename</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;js/[name].js&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">__dirname</span>, <span style="color:#e6db74">&#34;../src/main/webapp/dist/&#34;</span>),
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">optimization</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">minimizer</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">// JS 파일 최소화 플러그인
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">UglifyJsPlugin</span>({
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">cache</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">parallel</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">sourceMap</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>, <span style="color:#75715e">// set to true if you want JS source maps
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      }),
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">// CSS 파일 최소화 플러그인
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">OptimizeCSSAssetsPlugin</span>({
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">cssProcessor</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#34;cssnano&#34;</span>),
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">cssProcessorOptions</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">zindex</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>, <span style="color:#75715e">// z-index bug
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        },
+</span></span><span style="display:flex;"><span>      }),
+</span></span><span style="display:flex;"><span>    ],
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">plugins</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">CleanWebpackPlugin</span>(), <span style="color:#75715e">// 파일 생성 되는 해당 경로에 파일을 CLean 하는 플러그인.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">MiniCssExtractPlugin</span>({
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">// CSS 파일 최소화 플러그인.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#a6e22e">filename</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;css/[name].css&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">// chunkFilename: &#39;[id].css&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }),
+</span></span><span style="display:flex;"><span>  ],
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">module</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">rules</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.css$/</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">use</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex;"><span>          {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">loader</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">MiniCssExtractPlugin</span>.<span style="color:#a6e22e">loader</span>, <span style="color:#75715e">// javascript로 되어있는 entry 파일 안의 require되어있는 css 파일을 읽어주는 loader이다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">options</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>              <span style="color:#a6e22e">publicPath</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;../&#34;</span>,
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>          },
+</span></span><span style="display:flex;"><span>          <span style="color:#e6db74">&#34;css-loader&#34;</span>,
+</span></span><span style="display:flex;"><span>        ],
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.(png|jpg|gif)$/</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">use</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex;"><span>          {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">loader</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;file-loader&#34;</span>, <span style="color:#75715e">// webpack 5 이전 버전에서 사용되는 각 파일들에 대한 laoader이다. 해당 파일들을 경로에 맞게 번들링 해준다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">options</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>              <span style="color:#a6e22e">outputPath</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">url</span>) {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">url</span>.<span style="color:#a6e22e">replace</span>(<span style="color:#e6db74">&#34;_/src/main/webapp/&#34;</span>, <span style="color:#e6db74">&#34;./&#34;</span>);
+</span></span><span style="display:flex;"><span>              },
+</span></span><span style="display:flex;"><span>              <span style="color:#75715e">// name: &#39;[path][name].[ext]&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>              <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;[path][name].[ext]&#34;</span>,
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>          },
+</span></span><span style="display:flex;"><span>        ],
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">test</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/\.(woff|woff2|eot|ttf|otf)$/</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">use</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex;"><span>          {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">loader</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;file-loader&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">options</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>              <span style="color:#a6e22e">outputPath</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">url</span>) {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">url</span>.<span style="color:#a6e22e">replace</span>(<span style="color:#e6db74">&#34;_/src/main/webapp/&#34;</span>, <span style="color:#e6db74">&#34;./&#34;</span>);
+</span></span><span style="display:flex;"><span>              },
+</span></span><span style="display:flex;"><span>              <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;[path][name].[ext]&#34;</span>,
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>          },
+</span></span><span style="display:flex;"><span>        ],
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>    ],
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div></li>
+</ul>
+<ol>
+<li>
+<p>📁 D:\git-dlpcenter[DLPCenter.View.Web](<a href="http://dlpcenter.view.web/">http://dlpcenter.view.web/</a>)\frontend —&gt; cmd 실행</p>
+<blockquote>
+<p><strong>nvm use 10.14.2</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>npm run bundle</strong> —&gt; 기존의 번들링 (<strong>main_deco_0.css, main_deco_1.css</strong> / <strong>vendors_deco_0.css, vendors_deco_1.css</strong> 생성)</p>
+</blockquote>
+<ul>
+<li>명령어
+webpack
+&amp;&amp; type &quot;..\src\main\webapp\dist\css\main_deco_1.css&quot; &quot;..\src\main\webapp\dist\css\main.css&quot; &gt; &quot;..\postcss\main.combine.css\” —&gt;
+&amp;&amp; type &quot;..\src\main\webapp\dist\css\vendors_deco_1.css&quot; &quot;..\src\main\webapp\dist\css\vendors.css&quot; &gt; &quot;..\postcss\vendors.combine.css\” 이 실행됨.</li>
+<li>webpack 실행되는 부분</li>
+</ul>
+<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/8183a920-5524-4db4-a0a9-b5af74757153/fe066ac8-cb6d-44c2-a097-9bb4135f4ade/Untitled.png" alt="Untitled"></p>
+<ul>
+<li>명령어
+type &quot;..\src\main\webapp\dist\css\main_deco_1.css&quot; &quot;..\src\main\webapp\dist\css\main.css&quot; &gt; &quot;..\postcss\main.combine.css\” —&gt;
+&amp;&amp; type &quot;..\src\main\webapp\dist\css\vendors_deco_1.css&quot; &quot;..\src\main\webapp\dist\css\vendors.css&quot; &gt; &quot;..\postcss\vendors.combine.css\” 실행되는 부분</li>
+<li>main_deco_0.css + main_deco_1.css = <strong>main.combine.css</strong> | vendors_deco_0.css + main_deco_1.css = <strong>vendors.combine.css</strong> 이 생성.
+<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/8183a920-5524-4db4-a0a9-b5af74757153/b6884488-1b5e-4230-bc5e-7893530020e1/Untitled.png" alt="Untitled"></li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>📁 postcss 폴더 &gt; package.json
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;bada&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;version&#34;</span>: <span style="color:#e6db74">&#34;1.0.0&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;main&#34;</span>: <span style="color:#e6db74">&#34;index.js&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;scripts&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;test&#34;</span>: <span style="color:#e6db74">&#34;echo \&#34;Error: no test specified\&#34; &amp;&amp; exit 1&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;build&#34;</span>: <span style="color:#e6db74">&#34;postcss main.combine.css --output \&#34;..\\src\\main\\webapp\\dist\\css\\main_deco_1.css\&#34; &amp;&amp; postcss vendors.combine.css --output \&#34;..\\src\\main\\webapp\\dist\\css\\vendors_deco_1.css\&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;author&#34;</span>: <span style="color:#e6db74">&#34;&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;license&#34;</span>: <span style="color:#e6db74">&#34;ISC&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;devDependencies&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;postcss&#34;</span>: <span style="color:#e6db74">&#34;^8.4.32&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;postcss-clean&#34;</span>: <span style="color:#e6db74">&#34;^1.2.0&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;postcss-cli&#34;</span>: <span style="color:#e6db74">&#34;^11.0.0&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;postcss-delete-duplicate-selector&#34;</span>: <span style="color:#e6db74">&#34;^1.1.0&#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;dependencies&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;cssnano&#34;</span>: <span style="color:#e6db74">&#34;^6.0.2&#34;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></li>
+<li>📁 postcss &gt; postcss.config.js
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#75715e">// postcss에 맞는 설정을 해줘야한다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">plugins</span><span style="color:#f92672">:</span> [<span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#34;postcss-delete-duplicate-selector&#34;</span>)],
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div></li>
+</ul>
+<ol>
+<li>
+<p>📁 D:\git-dlpcenter[DLPCenter.View.Web](<a href="http://dlpcenter.view.web/">http://dlpcenter.view.web/</a>)\postcss —&gt; cmd 실행</p>
+<blockquote>
+<p><strong>nvm use 18.17.1</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>npm run build</strong> —&gt; 합쳐진 main.combine.css, vendors.combine.css 파일을 중복 제거 및 머지 해준다.</p>
+</blockquote>
+<ul>
+<li>&lsquo;postcss-delete-duplicate-selector&rsquo; 플러그인 실행됨.</li>
+<li>명령어 <em>postcss main.combine.css &ndash;output &quot;..\src\main\webapp\dist\css\main_deco_1.css&quot; &amp;&amp; postcss vendors.combine.css &ndash;output &quot;..\src\main\webapp\dist\css\vendors_deco_1.css\”</em> 이 실행됨.</li>
+<li>output 경로를 dist/css 로 설정하여 폴더 내에 <strong>main_deco_1.css</strong>와 <strong>vendors_deco_1.css</strong> 에 덮여쓰여진다 !</li>
+</ul>
+</li>
+</ol>
+<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/8183a920-5524-4db4-a0a9-b5af74757153/4d2b14c5-8539-4058-b0ee-361e37be2602/Untitled.png" alt="Untitled"></p>
+<h2 id="decorator-별로-링크-파일-분리">Decorator 별로 링크 파일 분리.</h2>
+<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/8183a920-5524-4db4-a0a9-b5af74757153/4521d52f-bd3b-4818-9e65-6e2de83c26f2/Untitled.png" alt="Untitled"></p>
+<p>📁 D:\git-dlpcenter[DLPCenter.View.Web](<a href="http://dlpcenter.view.web/">http://dlpcenter.view.web/</a>)\src\main\webapp\decorators\frameset\common*<em>header.jsp</em>*</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#75715e">&lt;!--</span> <span style="color:#a6e22e">load</span> <span style="color:#a6e22e">css</span> <span style="color:#a6e22e">file</span> <span style="color:#f92672">--&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">c</span><span style="color:#960050;background-color:#1e0010">:</span><span style="color:#a6e22e">if</span> <span style="color:#a6e22e">test</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;${isNewDecorator eq 0}&#39;</span>&gt;
+</span></span><span style="display:flex;"><span>	&lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stylesheet&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/css&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&lt;%=root%&gt;/dist/css/vendors_deco_0.css&#34;</span> /&gt;
+</span></span><span style="display:flex;"><span>	&lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stylesheet&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/css&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&lt;%=root%&gt;/dist/css/main_deco_0.css&#34;</span> /&gt;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/c:if&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">c</span><span style="color:#960050;background-color:#1e0010">:</span><span style="color:#a6e22e">if</span> <span style="color:#a6e22e">test</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;${isNewDecorator eq 1}&#39;</span>&gt;
+</span></span><span style="display:flex;"><span>	&lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stylesheet&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/css&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&lt;%=root%&gt;/dist/css/vendors_deco_1.css&#34;</span> /&gt;
+</span></span><span style="display:flex;"><span>	&lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stylesheet&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/css&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&lt;%=root%&gt;/dist/css/main_deco_1.css&#34;</span> /&gt;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/c:if&gt;</span>
+</span></span></code></pre></div><p>decorator 별로 css 파일을 다르게 불러와줘서 전처럼 side effect가 날 확률이 없다..</p>
+<hr>
+<h1 id="-bada-cli-command-line-interface">😺 Bada-Cli (Command Line Interface)</h1>
+<p>Webpack과 Postcss를 사용하려면 Command에서 아래의 명령어들을 실행해줘야한다…</p>
+<blockquote>
+<p>아래 경로로 이동… cmd 열고</p>
+<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/8183a920-5524-4db4-a0a9-b5af74757153/287279b9-b999-4e7f-abb0-5878fe628ccb/Untitled.png" alt="Untitled"></p>
+<p>$ nvm list</p>
+<p>$ nvm use 10.12.4
+$ npm run bundle</p>
+<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/8183a920-5524-4db4-a0a9-b5af74757153/482905fd-2213-44f3-9590-5f511e4ae21d/Untitled.png" alt="Untitled"></p>
+<p>위 경로로 이동… cmd 열고
+$ nvm list</p>
+<p>$ nvm use 18.17.1</p>
+<p>$ npm run build</p>
+</blockquote>
+<p>번들링 한번 해주려면 이것들을 다 수행해줘야 하기 때문에… 김정환 팀장님이 만들어주신 플러그인이다.</p>
+<p>자세한 설정 방법은 아래 링크로 들어가면 자세히 나와있다.</p>
+<p><a href="https://www.npmjs.com/package/bada-cli">npm: bada-cli</a></p>
+<p>bada-cli를 이용해 더 쉽고 간편하게 Webpack &amp; Postcss를 사용 할 수 있게 되었다~! ^0^</p>
+<hr>
+<h1 id="결과">결과</h1>
+<h3 id="isnewdecorator--0-main_deco_0css-vendors_deco_0css-적용-확인">isNewDecorator = 0 (main_deco_0.css, vendors_deco_0.css 적용 확인)</h3>
+<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/8183a920-5524-4db4-a0a9-b5af74757153/6c88e712-2673-4e9f-b646-92eb960c5550/Untitled.png" alt="Untitled"></p>
+<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/8183a920-5524-4db4-a0a9-b5af74757153/1d7f05b8-5d2c-40c8-917c-6d4cb45a175f/Untitled.png" alt="Untitled"></p>
+<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/8183a920-5524-4db4-a0a9-b5af74757153/130e231e-58c8-4c08-a563-56f7907a244a/Untitled.png" alt="Untitled"></p>
+<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/8183a920-5524-4db4-a0a9-b5af74757153/3c4f169b-eb6d-433f-9836-f71399341d03/Untitled.png" alt="Untitled"></p>
+<h3 id="isnewdecorator--1-main_deco_1css-vendors_deco_0">isNewDecorator = 1 (main_deco_1.css, vendors_deco_0.)</h3>
+<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/8183a920-5524-4db4-a0a9-b5af74757153/bcfc6bd9-3b09-437b-bc49-9c96a40d304c/Untitled.png" alt="Untitled"></p>
+<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/8183a920-5524-4db4-a0a9-b5af74757153/b2c0199e-b90e-4199-8b48-e33c579e2111/Untitled.png" alt="Untitled"></p>
+<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/8183a920-5524-4db4-a0a9-b5af74757153/eb8a8767-ff99-4377-8ddf-20e0f6bc699d/Untitled.png" alt="Untitled"></p>
+<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/8183a920-5524-4db4-a0a9-b5af74757153/2479c613-587c-40a5-ad35-8a9251f14cdd/Untitled.png" alt="Untitled"></p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+                </div>
+            </div><footer class="footer">
+  <div class="has-text-centered">
+    <layer>
+      
+        
+          
+          <a class="footer-social" href="https://linkedin.com/in/yourlinkedinprofile">LinkedIn</a>
+          
+          <a class="footer-social" href="https://twitter.com/yourtwittername">Github</a>
+          
+        
+      
+    </layer>
+    <layer>
+      <p>
+        
+        Website theme is <a class="has-text-weight-semibold" href="http://github.com/alloydwhitlock/huey">Huey</a> by <a class="has-text-weight-semibold" href="https://adamwhitlock.com">Adam Whitlock</a>.
+      </p>
+      <p>
+         &copy; 2024 Author&#39;s name goes here
+      </p>
+    </layer>
+  </div>
+</footer></div></body>
+</html>

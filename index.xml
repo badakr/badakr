@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>badalog</title>
+    <link>https://badakr.github.io/</link>
+    <description>Recent content on badalog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 31 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://badakr.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Example Post</title>
+      <link>https://badakr.github.io/archive/examplepost/hello.html</link>
+      <pubDate>Fri, 31 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://badakr.github.io/archive/examplepost/hello.html</guid>
+      <description>Content text goes here&amp;hellip;
+아카이브 안녕하세요</description>
+    </item>
+    
+    <item>
+      <title>뷁</title>
+      <link>https://badakr.github.io/archive/examplepost/about.html</link>
+      <pubDate>Thu, 30 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://badakr.github.io/archive/examplepost/about.html</guid>
+      <description>&amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;https://0cean-kr.github.io/style.min.d3da666ed9ed68d7ddcd192b882d21db9631617388ce5c8d8d37f54862ccd8ff.css&amp;quot; integrity=&amp;quot;sha256-09pmbtntaNfdzRkriC0h25YxYXOIzlyNjTf1SGLM2P8=&amp;quot;&amp;gt; &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;https://0cean-kr.github.io/style.min.1f9f55561f84d16b2741033325db3a786d51d0abd48e8189c111941bf5cb94f5.css&amp;quot; integrity=&amp;quot;sha256-H59VVh&amp;amp;#43;E0WsnQQMzJds6eG1R0KvUjoGJwRGUG/XLlPU=&amp;quot;&amp;gt; &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;https://0cean-kr.github.io/assets/css/extra.css&amp;quot; media=&amp;quot;screen&amp;quot;&amp;gt; &amp;lt;script src=&amp;quot;https://0cean-kr.github.io/js/bulma.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;link rel=&amp;quot;shortcut icon&amp;quot; type=&amp;quot;image/x-icon&amp;quot; href=&amp;quot;https://0cean-kr.github.io/img/&amp;quot;&amp;gt; &amp;lt;a class=&amp;quot;navbar-item&amp;quot; href=&amp;quot;https://0cean-kr.github.io/&amp;quot; &amp;gt;Home&amp;lt;/a&amp;gt; &amp;lt;a class=&amp;quot;navbar-item&amp;quot; href=&amp;quot;https://0cean-kr.github.io/about/&amp;quot; &amp;gt;About&amp;lt;/a&amp;gt; &amp;lt;a class=&amp;quot;navbar-item&amp;quot; href=&amp;quot;https://0cean-kr.github.io/archive/&amp;quot; &amp;gt;Archive&amp;lt;/a&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/figure&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;div class=&amp;quot;columns&amp;quot;&amp;gt; &amp;lt;div class=&amp;quot;column&amp;quot;&amp;gt; &amp;lt;div class=&amp;quot;content&amp;quot;&amp;gt; &amp;lt;h1 class=&amp;quot;title is-3&amp;quot;&amp;gt;💥 신 메뉴 체계와 구 메뉴 체계 상호 간 영향 받지 않게 CSS 분리&amp;lt;/h1&amp;gt; &amp;lt;h2 class=&amp;quot;subtitle is-5&amp;quot;&amp;gt;&amp;lt;time&amp;gt;January 25, 2024&amp;lt;/time&amp;gt;&amp;lt;/h2&amp;gt; &amp;lt;p class=&amp;quot;subtitle is-4&amp;quot;&amp;gt;신 메뉴 체계와 구 메뉴 체계 상호 간 영향 받지 않게 CSS 분리!</description>
+    </item>
+    
+  </channel>
+</rss>
